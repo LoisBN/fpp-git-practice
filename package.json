@@ -9,6 +9,7 @@
     "start": "react-router-serve ./build/server/index.js"
   },
   "dependencies": {
+    "@react-router/node": "^7.1.5",
     "@supabase/supabase-js": "^2.49.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
