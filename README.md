@@ -4,7 +4,9 @@ A tiny React Router v7 + Supabase app you'll use to practice the Git workflow: *
 
 ## What is this?
 
-This is a pre-built Developer Profile Card app. Your job is **not** to build it from scratch — it's to practice Git by making changes to it, committing those changes, and pushing them to your own repository.
+This is a pre-built Developer Profile Card app. Your job is **not** to build it from scratch — it's to practice Git by making changes to it, committing those changes, and pushing them to **your own** GitHub repository.
+
+> ⚠️ **Important:** You will clone this repo from the course account, but you **cannot push back to it** — it's read-only for students. You'll create your own GitHub repo and push there instead. The steps below explain exactly how.
 
 ## Tech Stack
 
@@ -44,7 +46,7 @@ cd fpp-git-practice
 code .
 ```
 
-> 💡 **What just happened?** You downloaded a copy of this project from GitHub onto your computer. That's what `git clone` does.
+> 💡 **What just happened?** You downloaded a copy of this project from GitHub onto your computer. That's what `git clone` does. You cloned the **course** repo — it's read-only for students. You'll create your own repo to push to in Step 6.
 
 ---
 
@@ -117,7 +119,7 @@ In VSCode, find and open this file:
 app/routes/profile.tsx
 ```
 
-> 💡 **How to find it:** In VSCode, look at the left sidebar (file explorer). Click the `app` folder → `routes` folder → `profile.tsx`. Or press `Ctrl+P` (Windows) / `Cmd+P` (Mac) and type `profile.tsx`.
+> 💡 **How to find it:** In VSCode, look at the left sidebar (file explorer). Click the `app` folder, then `routes` folder, then `profile.tsx`. Or press `Ctrl+P` (Windows) / `Cmd+P` (Mac) and type `profile.tsx`.
 
 You'll see a section that looks like this:
 
@@ -186,41 +188,95 @@ git commit -m "Add my profile info"
 
 ---
 
-### Step 6: Push to GitHub
-
-> 📍 **Where:** Your VSCode terminal
-
-```bash
-git push
-```
-
-> ⚠️ **First time pushing?** Git might ask you to log in to GitHub. Follow the prompts — it usually opens a browser window to authenticate.
-
-> 💡 **What just happened?** You uploaded your commit from your computer to GitHub. Now your changes are online, and anyone can see them!
-
----
-
-### Step 7: Make a change on GitHub (practice `git pull`)
+### Step 6: Create YOUR own GitHub repo
 
 > 📍 **Where:** Your browser — go to [github.com](https://github.com)
 
-1. Go to **your** repo on GitHub (the URL will look like `github.com/YOUR-USERNAME/fpp-git-practice`)
-2. Click on the `README.md` file
-3. Click the **pencil icon** (✏️) in the top right to edit it
-4. Add a line at the bottom, like: `> Completed by [Your Name] on [today's date]!`
-5. Click **"Commit changes"** (the green button)
+**Why?** You cloned the course repo, which is **read-only** for students. You cannot push to it. You need to create your own repo to push your work to.
 
-Now go back to your VSCode terminal:
+1. Click the **+** icon in the top-right corner of GitHub
+2. Select **"New repository"**
+3. Name it `fpp-git-practice` (or anything you like)
+4. ⚠️ **Do NOT check "Add a README file"** — leave it unchecked!
+5. ⚠️ **Do NOT add a .gitignore or license** — leave everything unchecked!
+6. Click **"Create repository"**
+
+> ⚠️ **Why must the repo be empty?** Because you already have all the files from the clone. If GitHub creates a README too, Git will get confused because both repos have different starting histories.
+
+You'll see a page with setup instructions — **keep this page open**, you'll need the URL in the next step.
+
+---
+
+### Step 7: Add your repo as a remote and push
+
+> 📍 **Where:** Your VSCode terminal
+
+Right now, your project has one "remote" called `origin` — that's the course repo (read-only). You need to add YOUR repo as a second remote.
+
+**Add your repo as a remote called `myrepo`:**
+```bash
+git remote add myrepo https://github.com/YOUR-USERNAME/fpp-git-practice.git
+```
+
+> ⚠️ **Replace `YOUR-USERNAME`** with your actual GitHub username! For example, if your GitHub is `janedoe`, the URL would be `https://github.com/janedoe/fpp-git-practice.git`
+
+**Push your code to YOUR repo:**
+```bash
+git push myrepo main
+```
+
+> 💡 **First time pushing?** Git might ask you to log in to GitHub. Follow the prompts — it usually opens a browser window to authenticate.
+
+> 📍 **Where:** Your browser — go to your repo at `github.com/YOUR-USERNAME/fpp-git-practice`
+
+Refresh the page. You should see all the project files and your profile changes!
+
+> 💡 **What just happened?** You now have two remotes:
+> - `origin` = the course repo (LoisBN's — read-only, you can only pull from it)
+> - `myrepo` = YOUR repo (you can push and pull)
+>
+> You can verify this by running: `git remote -v`
+
+---
+
+### Step 8: Practice `git pull` — edit on GitHub, pull locally
+
+> 📍 **Where:** Your browser — go to **YOUR** repo (not the course repo!)
+
+Go to `github.com/YOUR-USERNAME/fpp-git-practice`:
+
+1. Click on the `README.md` file
+2. Click the **pencil icon** (✏️) in the top right to edit it
+3. Add a line at the bottom, like: `> Completed by [Your Name] on [today's date]!`
+4. Click **"Commit changes"** (the green button)
+
+Now pull that change to your computer:
 
 > 📍 **Where:** Your VSCode terminal
 
 ```bash
-git pull
+git pull myrepo main
 ```
 
-Open the `README.md` file in VSCode — you should see the change you made on GitHub now appears locally!
+Open the `README.md` file in VSCode — you should see the change you made on GitHub!
 
-> 💡 **What just happened?** You made a change _on GitHub_ (the remote), and then used `git pull` to download that change to your computer (the local copy). This is how teams stay in sync!
+> 💡 **What just happened?** You made a change _on GitHub_ (your remote repo), and then used `git pull myrepo main` to download that change to your computer. Notice you pull from `myrepo` — that's YOUR repo. This is how teams stay in sync!
+
+---
+
+## Summary: Key Remotes
+
+| Remote | Points to | Can you push? | Usage |
+|--------|-----------|---------------|-------|
+| `origin` | Course repo (LoisBN) | ❌ No (read-only) | Pull course updates |
+| `myrepo` | Your repo (YOUR-USERNAME) | ✅ Yes | Push your work |
+
+**Quick reference:**
+```bash
+git push myrepo main     # Push YOUR changes to YOUR repo
+git pull myrepo main     # Pull changes from YOUR repo
+git remote -v            # See all your remotes
+```
 
 ---
 
@@ -228,7 +284,8 @@ Open the `README.md` file in VSCode — you should see the change you made on Gi
 
 If you get stuck on any step, you can ask Claude! Here are some example prompts:
 
-- **"What does `git status` mean?"** — Claude will explain what the command does
+- **"I'm getting 'Permission denied' when I push — what do I do?"** — Claude will help you set up your own remote
+- **"What does `git remote -v` show and what does it mean?"** — Great for understanding remotes
 - **"I'm getting an error when I run `npm install`, here's what it says: [paste error]"** — Claude can help debug
 - **"Can you explain what a commit is in Git?"** — Great for understanding concepts
 
@@ -263,9 +320,20 @@ app/
 - Make sure you ran `npm install` first
 - Make sure the `.env` file exists (see Step 2)
 
-**"git push" says "permission denied" or "authentication failed":**
-- You need to fork this repo first (click "Fork" on GitHub), then clone _your_ fork instead of the original
-- If you already cloned, update the remote: `git remote set-url origin https://github.com/YOUR-USERNAME/fpp-git-practice.git`
+**"Permission denied" or "403 error" when running `git push`:**
+- ⚠️ **This is the most common mistake!** You're trying to push to `origin` (the course repo), which is read-only for students
+- You need to create your own GitHub repo and push there instead (see Step 6 and Step 7)
+- If you already created your repo, make sure you added it as a remote: `git remote add myrepo https://github.com/YOUR-USERNAME/fpp-git-practice.git`
+- Then push to it: `git push myrepo main`
+
+**"git push myrepo main" says "rejected" or "failed to push":**
+- This can happen if your GitHub repo is not empty. Delete the repo on GitHub, create a new empty one (with NO README), and try again
+- Or try: `git push myrepo main --force` (only use this for exercise repos, not real projects!)
+
+**"Running scripts is disabled" error on Windows:**
+- Open PowerShell as Administrator: right-click Start Menu, click "Windows PowerShell (Admin)"
+- Run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+- Type Y and press Enter. Close the admin window and try again in your VSCode terminal
 
 **Page shows a blank screen or error:**
 - Open your browser's developer tools (`F12`), go to the Console tab, and look for red error messages
