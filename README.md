@@ -1,11 +1,14 @@
 # Git Practice — Developer Profile Card
 
-A pre-built React Router v7 profile card app used to practice the full Git workflow: **clone → edit → commit → push → pull**.
+A pre-built React Router v7 profile card app used to practice the full Git workflow: **fork → clone → edit → commit → push**.
 
 ## Quick Start
 
+**1. Fork this repo** — Click the **Fork** button at the top right of this page.
+
+**2. Clone your fork:**
 ```bash
-git clone https://github.com/LoisBN/fpp-git-practice.git
+git clone https://github.com/YOUR-GITHUB-USERNAME/fpp-git-practice.git
 cd fpp-git-practice
 npm install
 cp .env.example .env
